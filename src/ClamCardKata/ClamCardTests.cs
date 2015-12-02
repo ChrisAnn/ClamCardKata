@@ -29,6 +29,28 @@ namespace ClamCardKata
 
             Assert.That(card.Total, Is.EqualTo(3));
         }
+
+        [Test]
+        public void Single_Journey_From_Zone_A_to_Zone_B_Correctly_Charged(
+            [Values("Asterisk", "Antelope", "Aldgate", "Angel")] string originStation,
+            [Values("Bison", "Bugel", "Balham", "Bullhead", "Barbican")] string destinationStation)
+        {
+            var card = new ClamCard();
+            card.AddJourney(originStation, destinationStation);
+
+            Assert.That(card.Total, Is.EqualTo(3));
+        }
+
+        [Test]
+        public void Single_Journey_From_Zone_B_to_Zone_A_Correctly_Charged(
+            [Values("Bison", "Bugel", "Balham", "Bullhead", "Barbican")] string originStation,
+            [Values("Asterisk", "Antelope", "Aldgate", "Angel")] string destinationStation)
+        {
+            var card = new ClamCard();
+            card.AddJourney(originStation, destinationStation);
+
+            Assert.That(card.Total, Is.EqualTo(3));
+        }
     }
 
     public class ClamCard
