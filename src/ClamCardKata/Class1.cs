@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Windows.Markup;
 using NUnit.Framework;
 
 namespace ClamCardKata
@@ -18,8 +19,10 @@ namespace ClamCardKata
             Assert.That(card.Total, Is.EqualTo(2.5));
         }
 
-        [TestCase("Barbican", "Balham")]
-        public void Single_Journey_In_Zone_B_Correctly_Charged(string originStation, string destinationStation)
+        [Test]
+        public void Single_Journey_In_Zone_B_Correctly_Charged(
+            [Values("Bison", "Bugel", "Balham", "Bullhead", "Barbican")] string originStation, 
+            [Values("Bison", "Bugel", "Balham", "Bullhead", "Barbican")] string destinationStation)
         {
             var card = new ClamCard();
             card.AddJourney(originStation, destinationStation);
