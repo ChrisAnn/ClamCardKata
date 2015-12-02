@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 
 namespace ClamCardKata
 {
@@ -13,6 +8,24 @@ namespace ClamCardKata
         [Test]
         public void Single_Journey_In_Zone_A_Correctly_Charged()
         {
+            var card = new ClamCard();
+            card.AddJourney("Asterisk", "Aldgate");
+
+            Assert.That(card.Total, Is.EqualTo(2.5));
+        }
+
+    }
+
+    public class ClamCard
+    {
+        public void AddJourney(string FromStation, string ToStation)
+        {
+            
+        }
+
+        public double Total()
+        {
+            return 2.5;
         }
     }
 }
