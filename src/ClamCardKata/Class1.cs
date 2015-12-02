@@ -1,4 +1,6 @@
-﻿using NUnit.Framework;
+﻿using System.Collections;
+using System.Collections.Generic;
+using NUnit.Framework;
 
 namespace ClamCardKata
 {
@@ -6,19 +8,21 @@ namespace ClamCardKata
     public class ClamCardTests
     {
         [Test]
-        public void Single_Journey_In_Zone_A_Correctly_Charged()
+        public void Single_Journey_In_Zone_A_Correctly_Charged(
+            [Values("Asterisk", "Antelope", "Aldgate", "Angel")] string originStation,
+            [Values("Asterisk", "Antelope", "Aldgate", "Angel")] string destinationStation)
         {
             var card = new ClamCard();
-            card.AddJourney("Asterisk", "Aldgate");
+            card.AddJourney(originStation, destinationStation);
 
             Assert.That(card.Total, Is.EqualTo(2.5));
         }
 
-        [Test]
-        public void Single_Journey_In_Zone_B_Correctly_Charged()
+        [TestCase("Barbican", "Balham")]
+        public void Single_Journey_In_Zone_B_Correctly_Charged(string originStation, string destinationStation)
         {
             var card = new ClamCard();
-            card.AddJourney("Barbican", "Balham");
+            card.AddJourney(originStation, destinationStation);
 
             Assert.That(card.Total, Is.EqualTo(3));
         }
@@ -30,7 +34,9 @@ namespace ClamCardKata
 
         public void AddJourney(string originStation, string destinationStation)
         {
-            if (originStation == "Asterisk" && destinationStation == "Aldgate")
+            IList<string> zoneAStations = new List<string> { "Asterisk", "Antelope", "Aldgate", "Angel" };
+
+            if (zoneAStations.Contains(originStation) && zoneAStations.Contains(destinationStation))
                 Total = 2.5;
             else Total = 3;
         }
